@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: drive-zone-online
+    env: node
+    plan: free
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.10.0
+      - key: HOST
+        value: "0.0.0.0"
+      - key: PORT
+        value: "3000"

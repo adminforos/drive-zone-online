@@ -1,0 +1,186 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Registered user account details and wallet metrics",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "whatsApp": { "type": "string" },
+        "gamingId": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "role": { "type": "string", "enum": ["user", "admin"] },
+        "balance": { "type": "number" },
+        "totalDeposits": { "type": "number" },
+        "totalSpending": { "type": "number" },
+        "totalTransfers": { "type": "number" },
+        "status": { "type": "string", "enum": ["active", "suspended"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["uid", "fullName", "email", "role", "balance", "status"]
+    },
+    "Product": {
+      "title": "Gaming Product",
+      "description": "Gaming product listing offered in marketplace",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "category": { "type": "string" },
+        "productImage": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "sellerGamingId": { "type": "string" },
+        "gamingId": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "sold", "deleted"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["title", "price", "sellerId", "status"]
+    },
+    "Order": {
+      "title": "Marketplace Order",
+      "description": "Completed purchase order history record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "productId": { "type": "string" },
+        "productTitle": { "type": "string" },
+        "productImage": { "type": "string" },
+        "buyerId": { "type": "string" },
+        "buyerName": { "type": "string" },
+        "buyerEmail": { "type": "string" },
+        "sellerId": { "type": "string" },
+        "sellerName": { "type": "string" },
+        "sellerEmail": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["completed", "cancelled", "pending"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["productId", "buyerId", "sellerId", "amount", "status"]
+    },
+    "Transaction": {
+      "title": "Wallet Transaction Log",
+      "description": "Financial ledger record of wallet movements",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "type": { "type": "string", "enum": ["deposit", "withdrawal", "transfer_sent", "transfer_received", "purchase", "sale"] },
+        "amount": { "type": "number" },
+        "fee": { "type": "number" },
+        "description": { "type": "string" },
+        "trxId": { "type": "string" },
+        "recipientId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "status": { "type": "string", "enum": ["completed", "pending", "failed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "type", "amount", "status"]
+    },
+    "DepositRequest": {
+      "title": "Wallet Deposit Request",
+      "description": "Manual deposit transaction proof submitted for admin verification",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "paymentMethod": { "type": "string", "enum": ["bKash", "Nagad", "Rocket"] },
+        "amount": { "type": "number" },
+        "fee": { "type": "number" },
+        "trxId": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "paymentMethod", "amount", "trxId", "status"]
+    },
+    "WithdrawalRequest": {
+      "title": "Wallet Withdrawal Request",
+      "description": "Cashout request submitted by user for admin approval",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "userName": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "paymentMethod": { "type": "string", "enum": ["bKash", "Nagad", "Rocket"] },
+        "accountNumber": { "type": "string" },
+        "amount": { "type": "number" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "adminNote": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["userId", "paymentMethod", "accountNumber", "amount", "status"]
+    },
+    "Notification": {
+      "title": "User Notification",
+      "description": "In-app notifications for order updates, deposit approvals, and transfers",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["deposit", "withdrawal", "order", "transfer", "system"] },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "title", "message", "read"]
+    },
+    "Settings": {
+      "title": "System Settings",
+      "description": "Global config for fee rates and official numbers",
+      "type": "object",
+      "properties": {
+        "depositFee": { "type": "number" },
+        "transferFee": { "type": "number" },
+        "paymentNumber": { "type": "string" },
+        "whatsAppSupport": { "type": "string" },
+        "siteNotice": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile collection"
+    },
+    "products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Marketplace gaming products"
+    },
+    "orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Marketplace order transactions history"
+    },
+    "transactions/{transactionId}": {
+      "schema": { "$ref": "#/entities/Transaction" },
+      "description": "User wallet transaction logs"
+    },
+    "depositRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/DepositRequest" },
+      "description": "Pending and processed wallet deposit verification requests"
+    },
+    "withdrawalRequests/{requestId}": {
+      "schema": { "$ref": "#/entities/WithdrawalRequest" },
+      "description": "User payout withdrawal requests"
+    },
+    "notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "In-app real-time user notification logs"
+    },
+    "settings/global": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "System-wide settings"
+    }
+  }
+}

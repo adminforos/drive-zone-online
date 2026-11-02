@@ -1,0 +1,6 @@
+{
+  "name": "DRIVE ZONE ONLINE",
+  "description": "Complete gaming marketplace for Drive Zone Online players - Buy & sell products, deposit wallet funds, transfer balance, and manage orders.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
